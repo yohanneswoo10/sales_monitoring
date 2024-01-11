@@ -1,4 +1,6 @@
 import frappe, psutil, time, platform, os, datetime
+from datetime import date
+
 
 global desctable
 
@@ -39,11 +41,12 @@ def get_sales_order(**kwargs):
 
 @frappe.whitelist()
 def get_sales_invoice(**kwargs):
+	today = date.today()
 	res = frappe._dict({})
 	if not ('System Manager' in [i.role for i in frappe.get_doc('User', frappe.session.user).roles]):
 		return res
 
-	doc = frappe.db.sql("""select name, customer, customer_name, posting_date, grand_total, owner from `tabSales Invoice` where status = 0""", as_dict = True)
+	doc = frappe.db.sql("""select name, customer, customer_name, posting_date, grand_total, owner from `tabSales Invoice` where posting_date = %s""", (today), as_dict = True)
 
 	if not doc:
 		invoices = frappe.render_template("sales_monitoring/sales_monitoring/page/sales_monitor/invoices.html", {"nama": "SALES INVOICE"})
