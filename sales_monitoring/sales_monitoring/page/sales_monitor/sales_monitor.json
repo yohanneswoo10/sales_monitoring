@@ -1,0 +1,19 @@
+{
+ "content": null,
+ "creation": "2024-01-11 11:07:21.453537",
+ "docstatus": 0,
+ "doctype": "Page",
+ "idx": 0,
+ "modified": "2024-01-11 11:07:21.453537",
+ "modified_by": "Administrator",
+ "module": "Sales Monitoring",
+ "name": "sales-monitor",
+ "owner": "Administrator",
+ "page_name": "sales-monitor",
+ "roles": [],
+ "script": null,
+ "standard": "Yes",
+ "style": null,
+ "system_page": 0,
+ "title": "Sales Monitor"
+}
