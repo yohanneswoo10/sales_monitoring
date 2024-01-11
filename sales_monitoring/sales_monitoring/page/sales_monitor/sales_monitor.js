@@ -24,11 +24,10 @@ MyPage = Class.extend({
                 // execute methods
                 $(frappe.render_template(`
                                 <div style="text-align:center;">
-                                <div class="row">SALES ORDER
-                                        //<div class="col-md-6"id="chart_div" style="width: 100%; height: 400pxpx;"></div>
+                                <div class="row">
                                         <div class="col-md-6"style="width: 100%;" id="desc_table"></div>
+                                        <div class="col-md-6"style="width: 100%;" id="invoice"></div>
                                 </div>
-                         //<div id="cpu_frequency_div" style="width: 100%; height: 500px;"></div>
                          </div>`, this)).appendTo(this.page.main);
                 sales_data();
 
@@ -40,8 +39,8 @@ MyPage = Class.extend({
 let sales_data = () => {
                 setTimeout(()=>{
                         get_sales_order();
-                        
-                }, 3000)
+                        get_sales_invoice();
+                }, 100)
         }
 
 let get_sales_order = () => {
@@ -52,6 +51,19 @@ let get_sales_order = () => {
                                         data = r.message
                                         console.log(r);
                                         document.querySelector('#desc_table').innerHTML = data.desctable;
+                        }
+        })
+
+}
+
+let get_sales_invoice = () => {
+        frappe.call({
+                        method: "sales_monitoring.sales_monitoring.page.sales_monitor.sales_monitor.get_sales_invoice", //dotted path to server method
+                        callback: function(r) {
+                                        // code snippet
+                                        data = r.message
+                                        console.log(r);
+                                        document.querySelector('#invoice').innerHTML = data.invoices;
                         }
         })
 
