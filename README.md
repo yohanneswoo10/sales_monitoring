@@ -7,7 +7,7 @@ Monitor SO, DN, SI, Customer
 MIT
 
 ## USAGE
-- bench get-app https://github.com/mymi14s/sales__monitoring
+- bench get-app https://github.com/yohanneswoo10/sales__monitoring
 - bench --site sitename install-app sales_monitoring
 - bench restart
 - login
