@@ -1,0 +1,34 @@
+<p style="font-size: 40px;margin-top: 50px">{{ nama }} </p>
+<table class="table table-striped">
+  <thead>
+	<tr>
+	<th>No SO</th>
+	<th>Customer</th>
+	<th>Tanggal</th>
+	<th>Item</th>
+	<th>Qty</th>
+	<th>Price List</th>
+	<th>Disc %</th>
+	<th>Disc Amt</th>
+	<th>Rate</th>
+	<th>Status</th>
+	</tr>
+  </thead>
+  <tbody>
+    {% for d in document %}
+    <tr>
+      <td scope="row">{{ d.name }}</td>
+      <td scope="row">{{ d.customer_name }}</td>
+      <td scope="row">{{ frappe.format(d.posting_date, {"fieldtype":"Date"}) }}</td>
+      <td scope="row">{{ d.item }}</td>
+      <td scope="row">{{ frappe.format(d.qty, {"fieldtype":"Number"}) }}</td>
+      <td scope="row">{{ frappe.format(d.price, {"fieldtype":"Currency"}) }}</td>
+      <td scope="row">{{ d.discper }}</td>
+      <td scope="row">{{ frappe.format(d.discamt, {"fieldtype":"Currency"}) }}</td>
+      <td scope="row">{{ frappe.format(d.harga, {"fieldtype":"Currency"}) }}</td>
+      <td scope="row">{{ d.status }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+

@@ -1,24 +1,24 @@
-<b>{{ nama }}</b>
+<p style="font-size: 40px;">{{ nama }}</p>
 <table class="table table-striped">
   <thead>
 	<tr>
-	<th>No</th>
-	<th>Customer</th>
+	<th>No SO</th>
 	<th>Customer Name</th>
 	<th>Tanggal</th>
 	<th>Total</th>
 	<th>Owner</th>
+	<th>Status</th>
 	</tr>
   </thead>
   <tbody>
     {% for d in document %}
     <tr>
-      <td scope="row">{{ d.name }}</th>
-      <td scope="row">{{ d.customer }}</td>
-      <td scope="row">{{ d.customer_name }}</th>
-      <td scope="row">{{ d.transaction_date }}</th>
-      <td scope="row">{{ d.grand_total }}</th>
-      <td scope="row">{{ d.owner }}</th>
+      <td scope="row">{{ d.name }}</td>
+      <td scope="row">{{ d.customer_name }}</td>
+      <td scope="row">{{ frappe.format(d.transaction_date, {"fieldtype":"Date"}) }}</td>
+      <td scope="row">{{ frappe.format(d.grand_total, {"fieldtype":"Currency"}) }}</td>
+      <td scope="row">{{ d.owner }}</td>
+      <td scope="row">{{ d.status }}</td>
     </tr>
     {% endfor %}
   </tbody>
