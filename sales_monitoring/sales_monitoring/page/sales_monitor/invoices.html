@@ -17,9 +17,10 @@
       <td scope="row">{{ d.name }}</td>
       <td scope="row">{{ d.sales_order }}</td>
       <td scope="row">{{ d.customer_name }}</td>
-      <td scope="row">{{ frappe.format(d.transaction_date, {"fieldtype":"Date"}) }}</td>
+      <td scope="row">{{ frappe.format(d.posting_date, {"fieldtype":"Date"}) }}</td>
       <td scope="row">{{ frappe.format(d.grand_total, {"fieldtype":"Currency"}) }}</td>
-      <td scope="row">{{ d.owner }}</td>
+      <td scope="row">{{ d.sales_person }}</td>
+      <td scope="row">{{ d.status }}</td>
     </tr>
     {% endfor %}
   </tbody>

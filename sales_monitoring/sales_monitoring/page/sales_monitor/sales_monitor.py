@@ -19,8 +19,11 @@ def get_sales_order(**kwargs):
 	#	as_dict=True
 	#)
 
-	doc = frappe.db.sql("""select name, customer, customer_name, transaction_date, grand_total, owner, status from `tabSales Order` \
-				where status != 'Cancelled' OR transaction_date = %s""", (today), as_dict = True)
+	doc = frappe.db.sql("""select t1.name as name, t1.customer as customer, t1.customer_name as customer_name, t1.transaction_date as transaction_date, \
+				t1.grand_total as grand_total, t1.owner as owner, t1.status as status,  \
+				(select t2.sales_person from `tabSales Team` as t2 where t1.name = t2.parent) as sales_person \
+				from `tabSales Order` as t1 \
+				where status != 'Cancelled' AND status != 'Closed' AND status != 'Completed' """, as_dict = True)
 
 	if not doc:
 		desctable = frappe.render_template("sales_monitoring/sales_monitoring/page/sales_monitor/desctable.html", {"nama": "SALES ORDER"})
@@ -41,10 +44,11 @@ def get_sales_invoice(**kwargs):
 		return res
 
 	doc = frappe.db.sql("""select t1.name as name, t1.customer as customer, t1.customer_name as customer_name, t1.posting_date as posting_date, \
-				t1.grand_total as grand_total, t1.owner as owner, t2.sales_order as sales_order \
+				t1.grand_total as grand_total, t1.owner as owner, t1.status as status, GROUP_CONCAT(t2.sales_order) as sales_order, \
+				(select t2.sales_person from `tabSales Team` as t2 where t1.name = t2.parent) as sales_person \
 				from `tabSales Invoice` as t1 \
 				inner join `tabSales Invoice Item` as t2 on t2.parent = t1.name \
-				where t1.posting_date = %s""", (today), as_dict = True)
+				where t1.status != 'Cancelled' AND t1.posting_date = %s""", (today), as_dict = True)
 
 	if not doc:
 		invoices = frappe.render_template("sales_monitoring/sales_monitoring/page/sales_monitor/invoices.html", {"nama": "SALES INVOICE"})
